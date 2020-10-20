@@ -19,6 +19,7 @@ app.use(express.json());
 
 // routing
 app.use('/api/users', require('./routes/users'));
+app.use('/api/auth', require('./routes/auth'));
 
 // run the app
 app.listen(process.env.PORT, '0.0.0.0', () => {
