@@ -6,7 +6,14 @@ const { check } = require('express-validator');
 const AuthController = require('../controllers/auth.controller');
 
 // POST - Authenticate the user
-router.post('/', AuthController.authenticate);
+router.post(
+  '/',
+  [
+    check('email', 'Enter a valid email').isEmail(),
+    check('password', 'Password is required').notEmpty()
+  ],
+  AuthController.authenticate
+);
 // GET - Obtain the information of the user autenticated
 router.get('/', AuthController.userAuthenticated);
 

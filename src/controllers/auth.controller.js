@@ -1,4 +1,5 @@
 const argon2 = require('argon2');
+const { validationResult } = require('express-validator');
 const jtw = require('jsonwebtoken');
 
 // models
@@ -6,6 +7,16 @@ const User = require('../models/user.model');
 
 exports.authenticate = async (req, res) => {
   const { email, password } = req.body;
+
+  // errors of express-validator
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    // send error
+    return res.status(400).json({
+      response: 'fail',
+      errors: errors.array()
+    });
+  }
 
   // search the user
   const user = await User.findOne({ email });
