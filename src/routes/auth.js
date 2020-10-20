@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
 
+// middlewares
+const authentication = require('../middleware/authentication');
 // controllers
 const AuthController = require('../controllers/auth.controller');
 
@@ -15,6 +17,6 @@ router.post(
   AuthController.authenticate
 );
 // GET - Obtain the information of the user autenticated
-router.get('/', AuthController.userAuthenticated);
+router.get('/', authentication, AuthController.userAuthenticated);
 
 module.exports = router;

@@ -34,7 +34,8 @@ exports.authenticate = async (req, res) => {
     const token = jtw.sign(
       {
         id: user.id,
-        name: user.name
+        name: user.name,
+        email: user.email
       },
       process.env.SECRET,
       {
@@ -55,4 +56,10 @@ exports.authenticate = async (req, res) => {
   }
 };
 
-exports.userAuthenticated = async (req, res) => {};
+exports.userAuthenticated = async (req, res) => {
+  const { user } = req;
+  res.status(200).json({
+    response: 'success',
+    data: user
+  });
+};
