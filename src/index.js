@@ -1,4 +1,5 @@
 const express = require('express');
+const morgan = require('morgan');
 const dbSync = require('./config/database');
 
 // env variables
@@ -9,6 +10,9 @@ const app = express();
 
 // connect to the database
 dbSync();
+
+// middlewares
+app.use(morgan('common'));
 
 // body-parser
 app.use(express.json());
