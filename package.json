@@ -19,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/angel-codes/nodesender-server/issues"
   },
-  "homepage": "https://github.com/angel-codes/nodesender-server#readme"
+  "homepage": "https://github.com/angel-codes/nodesender-server#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
 }
