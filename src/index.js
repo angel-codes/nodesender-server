@@ -20,6 +20,7 @@ app.use(express.json());
 // routing
 app.use('/api/users', require('./routes/users'));
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/links', require('./routes/links'));
 
 // run the app
 app.listen(process.env.PORT, '0.0.0.0', () => {
