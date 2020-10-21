@@ -15,15 +15,17 @@ const LinkSchema = new Schema({
     required: true
   },
   downloads: {
-    type: Number
+    type: Number,
+    default: 1
   },
   password: {
-    type: String
+    type: String,
+    default: null
   },
   author: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    default: 'anonymous'
+    default: null
   },
   created_at: {
     type: Date,
