@@ -1,11 +1,22 @@
 const shortid = require('shortid');
 const argon2 = require('argon2');
+const { validationResult } = require('express-validator');
 
 // models
 const Link = require('../models/link.model');
 
 exports.create = async (req, res) => {
   const { original_name, password } = req.body;
+
+  // errors of express-validator
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    // send error
+    return res.status(400).json({
+      response: 'fail',
+      errors: errors.array()
+    });
+  }
 
   // create new link
   const link = new Link({
