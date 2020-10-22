@@ -3,7 +3,6 @@ const jtw = require('jsonwebtoken');
 module.exports = (req, res, next) => {
   const jsontoken = req.get('Authorization');
 
-  console.log(jsontoken);
   // check if the token exists
   if (jsontoken) {
     jtw.verify(

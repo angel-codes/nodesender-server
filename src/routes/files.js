@@ -7,7 +7,7 @@ const authentication = require('../middleware/authentication');
 const FilesController = require('../controllers/files.controller');
 
 // POST - Upload a file
-router.post('/', FilesController.upload);
+router.post('/', authentication, FilesController.upload);
 // DELETE - Remove a file
 router.delete('/:id', FilesController.remove);
 

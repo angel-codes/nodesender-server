@@ -2,10 +2,14 @@ const multer = require('multer');
 
 // configs
 const multerConfig = require('../config/multer.config');
-// upload files
-const upload = multer(multerConfig).single('file');
 
 exports.upload = async (req, res) => {
+  // upload files
+  const upload = multer({
+    ...multerConfig,
+    limits: { fileSize: req.user ? 1024 * 1024 * 10 : 1024 * 1024 }
+  }).single('file');
+
   upload(req, res, async error => {
     if (!error) {
       res.status(200).json({
