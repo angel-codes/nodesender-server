@@ -1,4 +1,5 @@
 const multer = require('multer');
+const fs = require('fs');
 
 // configs
 const multerConfig = require('../config/multer.config');
@@ -25,5 +26,12 @@ exports.upload = async (req, res) => {
   });
 };
 exports.remove = async (req, res) => {
-  console.log('remove a file...');
+  console.log(req.file);
+
+  try {
+    fs.unlinkSync(__dirname + `/../uploads/${req.file}`);
+    console.log('eliminado');
+  } catch (error) {
+    console.log(error);
+  }
 };

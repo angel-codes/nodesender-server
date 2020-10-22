@@ -6,7 +6,7 @@ const { validationResult } = require('express-validator');
 const Link = require('../models/link.model');
 
 exports.create = async (req, res) => {
-  const { original_name, password } = req.body;
+  const { name, original_name, password } = req.body;
 
   // errors of express-validator
   const errors = validationResult(req);
@@ -20,10 +20,10 @@ exports.create = async (req, res) => {
 
   // create new link
   const link = new Link({
+    name,
     original_name,
     password,
-    url: shortid.generate(),
-    name: shortid.generate()
+    url: shortid.generate()
   });
 
   if (req.user) {
@@ -58,5 +58,44 @@ exports.create = async (req, res) => {
       response: 'fail',
       data: 'Something went wrong'
     });
+  }
+};
+
+exports.get = async (req, res, next) => {
+  // get the url
+  const { url } = req.params;
+
+  // check if the link exists
+  const link = await Link.findOne({ url });
+  if (!link) {
+    return res.status(404).json({
+      response: 'fail',
+      data: 'Link not found'
+    });
+  }
+
+  // send the file
+  res.status(200).json({
+    response: 'success',
+    data: link.name
+  });
+
+  // object destructuring
+  const { name, downloads } = link;
+
+  // remove file if the numbers of available downloads is 1
+  if (downloads === 1) {
+    // set name of the file
+    req.file = name;
+
+    // remove link in the database
+    await Link.findOneAndRemove({ url });
+
+    // remove file in next middleware
+    next();
+  } else {
+    // decrease the number of available downloads
+    link.downloads--;
+    await link.save();
   }
 };

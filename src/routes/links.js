@@ -6,7 +6,9 @@ const { check } = require('express-validator');
 const authentication = require('../middleware/authentication');
 // controllers
 const LinksController = require('../controllers/links.controller');
+const FilesController = require('../controllers/files.controller');
 
+// POST - create link for a file
 router.post(
   '/',
   [
@@ -16,5 +18,7 @@ router.post(
   authentication,
   LinksController.create
 );
+// GET - get the link and file
+router.get('/:url', LinksController.get, FilesController.remove);
 
 module.exports = router;
