@@ -7,8 +7,11 @@ module.exports = {
       cb(null, __dirname + './../uploads');
     },
     filename: (req, file, cb) => {
-      const fileExtension = file.mimetype.split('/')[1];
-      cb(null, `${shortid.generate()}.${fileExtension}`);
+      const fileExtension = file.originalname.substring(
+        file.originalname.lastIndexOf('.'),
+        file.originalname.length
+      );
+      cb(null, `${shortid.generate()}${fileExtension}`);
     }
   }))
 };
