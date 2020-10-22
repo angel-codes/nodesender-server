@@ -13,7 +13,7 @@ exports.upload = async (req, res) => {
         data: req.file.filename
       });
     } else {
-      return res.status(400).json({
+      return res.status(500).json({
         response: 'fail',
         data: error
       });
