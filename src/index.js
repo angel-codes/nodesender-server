@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const dbSync = require('./config/database');
 
 // env variables
@@ -12,10 +13,9 @@ const app = express();
 dbSync();
 
 // middlewares
-app.use(morgan('common'));
-
-// body-parser
-app.use(express.json());
+app.use(cors()); // enable cors
+app.use(morgan('common')); // show request in the log
+app.use(express.json()); // body-parser
 
 // routing
 app.use('/api/users', require('./routes/users'));
