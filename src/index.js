@@ -13,7 +13,7 @@ const app = express();
 dbSync();
 
 // middlewares
-app.use(cors()); // enable cors
+app.use(cors({ origin: process.env.FRONTEND_URL })); // enable cors
 app.use(morgan('common')); // show request in the log
 app.use(express.json()); // body-parser
 
