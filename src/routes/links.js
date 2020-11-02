@@ -21,6 +21,6 @@ router.post(
 // GET - get all links
 router.get('/', LinksController.getAll);
 // GET - get the link and file
-router.get('/:url', LinksController.get, FilesController.remove);
+router.get('/:url', LinksController.get);
 
 module.exports = router;

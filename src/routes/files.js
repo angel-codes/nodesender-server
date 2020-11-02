@@ -8,6 +8,8 @@ const FilesController = require('../controllers/files.controller');
 
 // POST - Upload a file
 router.post('/', authentication, FilesController.upload);
+// GET - get the file
+router.get('/:file', FilesController.download, FilesController.remove);
 // DELETE - Remove a file
 router.delete('/:id', FilesController.remove);
 

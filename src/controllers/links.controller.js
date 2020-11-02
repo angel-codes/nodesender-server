@@ -96,23 +96,4 @@ exports.get = async (req, res, next) => {
     response: 'success',
     data: link.name
   });
-
-  // object destructuring
-  const { name, downloads } = link;
-
-  // remove file if the numbers of available downloads is 1
-  if (downloads === 1) {
-    // set name of the file
-    req.file = name;
-
-    // remove link in the database
-    await Link.findOneAndRemove({ url });
-
-    // remove file in next middleware
-    next();
-  } else {
-    // decrease the number of available downloads
-    link.downloads--;
-    await link.save();
-  }
 };
