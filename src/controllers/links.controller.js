@@ -51,7 +51,25 @@ exports.create = async (req, res) => {
       data: link.url
     });
   } catch (error) {
-    console.log(error);
+    // send error
+    return res.status(500).json({
+      response: 'fail',
+      data: 'Something went wrong'
+    });
+  }
+};
+
+exports.getAll = async (req, res) => {
+  try {
+    // get all links
+    const links = await Link.find({}).select('url');
+
+    // return response
+    return res.status(200).json({
+      response: 'success',
+      data: links
+    });
+  } catch (error) {
     // send error
     return res.status(500).json({
       response: 'fail',

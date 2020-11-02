@@ -18,6 +18,8 @@ router.post(
   authentication,
   LinksController.create
 );
+// GET - get all links
+router.get('/', LinksController.getAll);
 // GET - get the link and file
 router.get('/:url', LinksController.get, FilesController.remove);
 
