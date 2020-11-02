@@ -17,6 +17,9 @@ app.use(cors({ origin: process.env.FRONTEND_URL })); // enable cors
 app.use(morgan('common')); // show request in the log
 app.use(express.json()); // body-parser
 
+// public folder
+app.use(express.static('uploads'));
+
 // routing
 app.use('/api/users', require('./routes/users'));
 app.use('/api/auth', require('./routes/auth'));

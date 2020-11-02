@@ -26,12 +26,16 @@ exports.upload = async (req, res) => {
   });
 };
 exports.remove = async (req, res) => {
-  console.log(req.file);
-
   try {
-    fs.unlinkSync(__dirname + `/../uploads/${req.file}`);
-    console.log('eliminado');
+    fs.unlinkSync(__dirname + `/../../uploads/${req.file}`);
+    return res.status(200).json({
+      response: 'success',
+      data: 'File deleted'
+    });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({
+      response: 'fail',
+      data: error
+    });
   }
 };
