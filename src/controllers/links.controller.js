@@ -6,7 +6,7 @@ const { validationResult } = require('express-validator');
 const Link = require('../models/link.model');
 
 exports.create = async (req, res) => {
-  const { name, original_name, password } = req.body;
+  const { name, original_name } = req.body;
 
   // errors of express-validator
   const errors = validationResult(req);
@@ -22,7 +22,6 @@ exports.create = async (req, res) => {
   const link = new Link({
     name,
     original_name,
-    password,
     url: shortid.generate()
   });
 
