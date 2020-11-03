@@ -59,6 +59,45 @@ exports.create = async (req, res) => {
   }
 };
 
+exports.checkPassword = async (req, res) => {
+  // get the url
+  const { url } = req.params;
+
+  // password from body
+  const { password } = req.body;
+
+  try {
+    // check if the link exists
+    const link = await Link.findOne({ url });
+    if (!link) {
+      return res.status(404).json({
+        response: 'fail',
+        data: 'Link not found'
+      });
+    }
+
+    // check if the password match
+    if (await argon2.verify(link.password, password)) {
+      // return response
+      return res.status(200).json({
+        response: 'success',
+        data: 'Unlocked'
+      });
+    } else {
+      return res.status(401).json({
+        response: 'fail',
+        data: 'Incorrect Password'
+      });
+    }
+  } catch (error) {
+    // send error
+    return res.status(500).json({
+      response: 'fail',
+      data: 'Something went wrong'
+    });
+  }
+};
+
 exports.getAll = async (req, res) => {
   try {
     // get all links

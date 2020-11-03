@@ -18,6 +18,8 @@ router.post(
   authentication,
   LinksController.create
 );
+// POST - check the password
+router.post('/:url', LinksController.checkPassword);
 // GET - get all links
 router.get('/', LinksController.getAll);
 // GET - get the link and file
