@@ -97,3 +97,30 @@ exports.get = async (req, res, next) => {
     data: link.name
   });
 };
+
+exports.hasPassword = async (req, res, next) => {
+  // get the url
+  const { url } = req.params;
+
+  // check if the link exists
+  const link = await Link.findOne({ url });
+  if (!link) {
+    return res.status(404).json({
+      response: 'fail',
+      data: 'Link not found'
+    });
+  }
+
+  // check if the link has password
+  if (link.password) {
+    return res.status(200).json({
+      response: 'success',
+      data: {
+        file: link.name,
+        password: true
+      }
+    });
+  }
+
+  next();
+};

@@ -21,6 +21,6 @@ router.post(
 // GET - get all links
 router.get('/', LinksController.getAll);
 // GET - get the link and file
-router.get('/:url', LinksController.get);
+router.get('/:url', LinksController.hasPassword, LinksController.get);
 
 module.exports = router;
